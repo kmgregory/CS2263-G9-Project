@@ -18,7 +18,7 @@
 GCC = gcc
 CFLAGS = -g -Wall -Wshadow
 SRCS = src/main.c
-# HDRS = ___.h - No header files yet
+HDRS = src/grade.h src/student.h
 OBJS = $(SRCS:src/%.c=bin/%.o) # OBJS = bin/main.o, etc.
 VALGRIND = valgrind --tool=memcheck --leak-check=full
 VALGRIND+ = --verbose --log-file=valog
