@@ -7,6 +7,10 @@
  *
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #ifndef GRADE_H
 #define GRADE_H
 

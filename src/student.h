@@ -7,6 +7,8 @@
  *
  */
 
+#include "grade.h"
+
 #ifndef STUDENT_H
 #define STUDENT_H
 
