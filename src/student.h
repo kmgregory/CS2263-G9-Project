@@ -13,13 +13,13 @@
 typedef struct {
 	int id;
 	char * name;
-	float *grades;
+	Grade *grades;
 	float gpa;
 
 } Student;
 
 // Function Prototypes
-float calculateGPA(float grades[], int numGrades);
+float calculateGPA(Grade* grades[], int count);
 void displayStudent(const Student* student);
 void sortByID(Student students[], int count);
 void sortByName(Student students[], int count);
