@@ -13,9 +13,17 @@
 typedef struct {
 	int id;
 	char * name;
-	double *grades;
-	double gpa;
+	float *grades;
+	float gpa;
 
 } Student;
+
+// Function Prototypes
+float calculateGPA(float grades[], int numGrades);
+void displayStudent(const Student* student);
+void sortByID(Student students[], int count);
+void sortByName(Student students[], int count);
+void sortByGPA(Student students[], int count);
+void printBarChart(Student* student);
 
 #endif
