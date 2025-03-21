@@ -12,20 +12,30 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
+#define MAX_NAME_LENGTH 40
+
 typedef struct {
 	int id;
-	char * name;
+	char name[MAX_NAME_LENGTH];
 	Grade *grades;
 	float gpa;
 
 } Student;
 
+Student *constructStudent(const char *name, int id) {
+	Student *s = malloc(sizeof(Student));
+	s->id = id;
+	strcpy(s->name, name);
+	return s;
+}
+
 // Function Prototypes
-float calculateGPA(Grade* grades[], int count);
-void displayStudent(const Student* student);
-void sortByID(Student students[], int count);
-void sortByName(Student students[], int count);
-void sortByGPA(Student students[], int count);
+void addStudent(Student *students[], int *count, int *listSize, const char *name, int id);
+void printStudentInfo(const Student *s);
+float calculateGPA(Grade* grades, int count);
+void sortByID(Student *students, int count);
+void sortByName(Student *students[], int count);
+void sortByGPA(Student *students, int count);
 void printBarChart(Student* student);
 
 #endif
