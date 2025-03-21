@@ -68,7 +68,38 @@ int main(int argc, char** argv) {
 				
 			case 4:
 				
-				printf("Not yet implemented.\n");
+				int sortchoice = 0;
+				
+				printf("\nSelect one of the following:\n");
+				printf("1. Sort by id\n");
+				printf("2. Sort by name\n");
+				printf("3. Sort by GPA\n");
+				scanf(" %d", &sortchoice);
+				
+				switch(sortchoice) {
+					case 1:
+						
+						printf("Not yet implemented.\n");
+						break;
+						
+					case 2:
+						
+						printf("Not yet implemented.\n");
+						break;
+						
+					case 3:
+						
+						printf("Not yet implemented.\n");
+						break;
+						
+					default:
+						
+						printf("Invalid selection. Cancelling sort.\n");
+						break;
+						
+				}
+				
+				
 				break;
 				
 			case 5:
