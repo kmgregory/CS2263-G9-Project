@@ -89,6 +89,8 @@ int main(int argc, char** argv) {
 				
 			case 7:
 				
+				for(int i = 0; i < numStudents; i++)
+					free(studentList[i]);
 				free(studentList);
 				printf("Goodbye.\n");
 				break;
