@@ -20,6 +20,6 @@ typedef struct {
 } Grade;
 
 // Function Prototypes
-void addGrade(Grade *grades, int count);
+int addGrade(Grade *grades[], int *count, int *maxCount, float grade, char *name);
 
 #endif

@@ -9,8 +9,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "student.h"
+//#include <string.h>
+#include "student.c"
+#include "grade.c"
+#include "calculateGPA.c"
 
 int main(int argc, char** argv) {
 	
@@ -44,9 +46,10 @@ int main(int argc, char** argv) {
 				printf("Enter the student's name: ");
 				scanf(" %[^\n]", nameInput);
 				
-				Student *s = constructStudent(nameInput, idInput);
-				studentList[numStudents++] = s;
-				printf("Student successfully added.\n");
+				//Student *s = constructStudent(nameInput, idInput);
+				//studentList[numStudents++] = s;
+				//printf("Student successfully added.\n");
+				int ans = addStudent(studentList, &numStudents, &listSize, nameInput, idInput);
 				
 				if((float) numStudents / listSize >= 0.5f) { // Keep load factor < 0.5
 					listSize = listSize * 2;
@@ -58,12 +61,63 @@ int main(int argc, char** argv) {
 				
 			case 2:
 				
-				printf("Not yet implemented.\n");
+				//printf("Not yet implemented.\n");
+				
+				idInput = 0;
+				printf("\nEnter the student's id you want to remove: ");
+				scanf("%d", &idInput);
+				
+				if(removeStudent(studentList, &numStudents, idInput)){
+					printf("student #%d has been removed successfully", idInput);
+				}
+				else{
+					printf("could not find the student");
+				}
+				
 				break;
 				
 			case 3:
 				
-				printf("Not yet implemented.\n");
+				//printf("Not yet implemented.\n");
+				idInput = 0;
+				printf("\nEnter the student's id: ");
+				scanf("%d", &idInput);
+				
+				Student* one;
+				for(int i=0; i<numStudents; i++){
+					if(studentList[i]->id == idInput){
+						one = studentList[i];
+					}
+				}
+				printf("found the student");
+				if(one ==NULL){
+					printf("could not find the student");
+					break;
+				}
+				
+				char gradeName[50];
+				printf("\nEnter the name of the grade: (math/science/english)");
+				scanf("%s", &gradeName);
+				int gradeInput = 0;
+				printf("\nEnter the grade of the student: ");
+				scanf("%d", &gradeInput);
+				
+				if(addGrade(&one->grades, &one->numGrades, &one->maxGrades, gradeInput, gradeName)){
+					printf("Grade added successfully");
+					one->gpa = calculateGPA(&one->grades, one->numGrades);
+				}
+				else{
+					printf("error");
+				}
+				
+				if((float) one->numGrades / one->maxGrades >= 0.5f) { // Keep load factor < 0.5
+					one->grades = realloc(one->grades, sizeof(Grade) * (one->maxGrades*2));
+					one->maxGrades = one->maxGrades * 2;
+					printf("Doubled grade array size. Now %d\n", one->maxGrades);
+				}
+				
+					//would addGrade write to csv file???
+				
 				break;
 				
 			case 4:
