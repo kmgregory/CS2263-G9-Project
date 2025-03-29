@@ -15,11 +15,24 @@
 #define GRADE_H
 
 typedef struct {
-	char *name;
-	float grade;
+	
+	char *courseNum;
+	float gradePercent;
+	
 } Grade;
 
+typedef struct {
+	
+	Grade *data;
+	GradeNode *next;
+	
+} GradeNode;
+
 // Function Prototypes
-void addGrade(Grade *grades, int count);
+Grade *constructGrade(const char *name, float gradePercent);
+void deconstructGrade(Grade *g);
+GradeNode *constructGradeNode(Grade *g);
+void deconstructGradeNode(GradeNode *n);
+void addGrade(GradeNode *head, char *name, float grade);
 
 #endif

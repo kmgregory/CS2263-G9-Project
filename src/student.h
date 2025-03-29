@@ -12,25 +12,29 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#define MAX_NAME_LENGTH 40
-
 typedef struct {
+
 	int id;
-	char name[MAX_NAME_LENGTH];
-	Grade *grades;
+	char *name;
+	GradeNode *gradesList;
 	float gpa;
 
 } Student;
 
-Student *constructStudent(const char *name, int id) {
-	Student *s = malloc(sizeof(Student));
-	s->id = id;
-	strcpy(s->name, name);
-	return s;
-}
+typedef struct {
+	
+	Student *data;
+	struct StudentNode *next;
+	
+} StudentNode;
 
 // Function Prototypes
-void addStudent(Student *students[], int *count, int *listSize, const char *name, int id);
+Student *constructStudent(char *name, int id);
+void *deconstructStudent(Student *s);
+void *deconstructGrades(GradeNode *head);
+StudentNode *constructStudentNode(Student *s);
+void *deconstructStudentNode(StudentNode *n);
+void addStudent(StudentNode *head, const char *name, int id);
 void printStudentInfo(const Student *s);
 float calculateGPA(Grade* grades, int count);
 void sortByID(Student *students, int count);
