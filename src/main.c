@@ -140,17 +140,18 @@ void sortingList() {
 
 void destroyList(StudentNode **head) {
 	
-	if(head == NULL)
+	if(*head == NULL)
 		return;
 	
 	StudentNode *p = *head;
-	StudentNode *q = (*head)->next;
-	while(p != NULL) {
+	StudentNode *q = p->next;
+	while(q != NULL) {
 		deconstructStudentNode(p);
 		p = q;
 		q = q->next;
 	}
 	
+	deconstructStudentNode(p);
 	head = NULL;
 	
 }
