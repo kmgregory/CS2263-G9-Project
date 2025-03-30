@@ -10,6 +10,8 @@
 #include "grade.h"
 #include "student.h"
 
+#define MAX_NAME_LEN 50
+
 void printMenu();
 void destroyList(StudentNode **head);
 void sortingList();
@@ -20,7 +22,7 @@ int main(int argc, char** argv) {
 	StudentNode *head = NULL;
 	
 	int id = 0;
-	char name[50];
+	char name[MAX_NAME_LEN];
 	
 	while(choice != -1) {
 		

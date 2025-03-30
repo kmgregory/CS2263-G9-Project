@@ -36,6 +36,9 @@ void deconstructStudent(Student *s) {
 
 void deconstructGrades(GradeNode **head) {
 	
+	if(!head)
+		return;
+	
 	GradeNode *p = *head;
 	GradeNode *q = (*head)->next;
 	while(q != NULL) {
@@ -96,7 +99,7 @@ void addStudent(StudentNode **head, int id, char *name) {
 void removeStudent(StudentNode **head, int id) {
 	
 	// Empty list
-	if(head == NULL) {
+	if(*head == NULL) {
 	
 		printf("Student list is empty\n");
 		return;
@@ -104,17 +107,18 @@ void removeStudent(StudentNode **head, int id) {
 	}
 	
 	StudentNode *p = *head;
-	StudentNode *q = (*head)->next;
 	
 	// First student in list
 	if(p->data->id == id) {
-		
-		deconstructStudentNode(*head);
-		*head = q;
+		*head = p->next;
+		deconstructStudentNode(p);
 		printf("Successfully removed student %d\n", id);
 		return;
 		
 	}
+	
+	StudentNode *q = p->next;
+	
 	
 	// Rest of list
 	while(q != NULL) {
