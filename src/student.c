@@ -36,7 +36,7 @@ void deconstructStudent(Student *s) {
 
 void deconstructGrades(GradeNode **head) {
 	
-	if(!head)
+	if(head == NULL)
 		return;
 	
 	GradeNode *p = *head;
@@ -49,6 +49,7 @@ void deconstructGrades(GradeNode **head) {
 		
 	} 
 	
+	deconstructGradeNode(p);
 	head = NULL;
 	
 } // deconstructGrades
