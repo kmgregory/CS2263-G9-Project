@@ -7,8 +7,9 @@
  *
  */
 
-#include "grade.h"
-#include "student.h"
+#include "grade.c"
+#include "student.c"
+#include "sort.c"
 
 #define MAX_NAME_LEN 50
 
@@ -60,6 +61,26 @@ int main(int argc, char** argv) {
 			case 4: // Sort list of students
 			
 				// TODO
+				/*int last = 0;
+				StudentNode * tail;
+				if(!head){//head==null
+					printf("nothing in the list");
+					break;
+				}
+				else{
+					last = 1;
+					printf("in else");
+					//StudentNode * tail = head->next;
+					//if head->next = null either error or =NUll
+				}
+				
+				while(head->next){
+					printf("in while");
+					tail = tail->next;
+					last++;//idk if it counts right 
+				}*/
+				printf("send to sort");
+				quickSortID(head, tail, 0, last);
 				printf("Not implemented\n");
 				break;
 				
