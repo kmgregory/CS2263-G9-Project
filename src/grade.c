@@ -12,7 +12,12 @@
 Grade *constructGrade(const char *courseNum, float gradePercent) {
 	
 	Grade *g = (Grade *)malloc(sizeof(Grade));
+	if(g == NULL) 
+		printf("Failed to allocate space for grade\n");
+	
 	g->courseNum = strdup(courseNum);
+	if(g->courseNum == NULL)
+		printf("Failed to allocate space for grade name\n");
 	g->gradePercent = gradePercent;
 	return g;
 	
@@ -29,6 +34,8 @@ void deconstructGrade(Grade *g) {
 GradeNode *constructGradeNode(Grade *g) {
 	
 	GradeNode *n = (GradeNode *)malloc(sizeof(GradeNode));
+	if(n == NULL) 
+		printf("Failed to allocate space for node\n");
 	n->data = g;
 	n->next = NULL;
 	return n;
@@ -43,12 +50,17 @@ void deconstructGradeNode(GradeNode *n) {
 	
 } // deconstructGradeNode()
 
-void addGrade(GradeNode *head, char *courseNum, float grade) {
+void addGrade(GradeNode **head, char *courseNum, int grade) {
 	
 	Grade *g = constructGrade(courseNum, grade);
 	GradeNode *n = constructGradeNode(g);
 	
-	GradeNode *p = head;
+	if(*head == NULL) {
+		*head = n;
+		return;
+	}
+	
+	GradeNode *p = *head;
 	while(p->next != NULL)
 		p = p->next;
 	

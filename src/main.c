@@ -23,6 +23,7 @@ int main(int argc, char** argv) {
 	
 	int id = 0;
 	char name[MAX_NAME_LEN];
+	int gradePercent = 0;
 	
 	while(choice != -1) {
 		
@@ -53,8 +54,26 @@ int main(int argc, char** argv) {
 				
 			case 3: // Add grade
 				
-				// TODO
-				printf("Not implemented\n");
+				printf("Enter the student's id: ");
+				scanf("%d", &id);
+				
+				printf("Enter the course number (ex. CS2263): ");
+				scanf(" %[^\n]", name);
+				
+				printf("Enter the grade percent without %% (ex. 93): ");
+				scanf("%d", &gradePercent);
+				
+				StudentNode *n = findStudent(&head, id);
+				if(n == NULL) 
+					break;
+				printf("Found Student.\n");
+				
+				addGrade(&n->data->gradesListHead, name, gradePercent);
+				printf("Successfully added grade.\n");
+				
+				n->data->gpa = calculateGPA(&n->data->gradesListHead);
+				printf("Student %d's GPA is now %.2f.\n", n->data->id, n->data->gpa);
+				
 				break;
 			
 			case 4: // Sort list of students

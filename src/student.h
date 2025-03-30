@@ -16,7 +16,7 @@ typedef struct {
 
 	int id;
 	char *name;
-	GradeNode **gradesList;
+	GradeNode *gradesListHead;
 	float gpa;
 
 } Student;
@@ -37,7 +37,8 @@ void deconstructStudentNode(StudentNode *n);
 void addStudent(StudentNode **head, int id, char *name);
 void removeStudent(StudentNode **head, int id);
 void printStudentInfo(const Student *s);
-float calculateGPA(Grade** grades, int count);
+StudentNode *findStudent(StudentNode **head, int id);
+float calculateGPA(GradeNode **head);
 void sortByID(Student *students, int count);
 void sortByName(Student *students[], int count);
 void sortByGPA(Student *students, int count);

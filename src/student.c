@@ -12,12 +12,12 @@
 Student *constructStudent(int id,  char *name) {
 	
 	Student *s = (Student *)malloc(sizeof(Student));
-	if(!s) 
+	if(s == NULL) 
 		printf("Failed to allocate space for student %d\n", id);
 	
 	s->id = id;
 	s->name = strdup(name);
-	s->gradesList = NULL;
+	s->gradesListHead = NULL;
 	s->gpa = 0.0f;
 	
 	return s;
@@ -27,7 +27,7 @@ Student *constructStudent(int id,  char *name) {
 void deconstructStudent(Student *s) {
 	
 	free(s->name);
-	deconstructGrades(s->gradesList);
+	deconstructGrades(&s->gradesListHead);
 	free(s);
 	s = NULL;
 	
@@ -56,8 +56,9 @@ void deconstructGrades(GradeNode **head) {
 StudentNode *constructStudentNode(Student *s) {
 	
 	StudentNode *n = (StudentNode *)malloc(sizeof(StudentNode));
-	if(!n)
+	if(n == NULL)
 		printf("Failed to allocate space for node\n");
+	
 	n->data = s;
 	n->next = NULL;
 	
@@ -138,6 +139,22 @@ void removeStudent(StudentNode **head, int id) {
 	printf("Could not find student %d in list\n", id);
 	
 } // removeStudent()
+
+StudentNode *findStudent(StudentNode **head, int id) {
+	
+	StudentNode *p = *head;
+	
+	while(p != NULL) {
+		if(p->data->id == id)
+			return p;
+		
+		p = p->next;
+	}
+	
+	printf("Could not find student %d", id);
+	return p;
+	
+} // findStudent()
 
 void printStudentInfo(const Student *s) {
 	printf("%d: %s (%.2f)\n", s->id, s->name, s->gpa);

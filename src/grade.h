@@ -17,7 +17,7 @@
 typedef struct {
 	
 	char *courseNum;
-	float gradePercent;
+	int gradePercent;
 	
 } Grade;
 
@@ -33,6 +33,6 @@ Grade *constructGrade(const char *name, float gradePercent);
 void deconstructGrade(Grade *g);
 GradeNode *constructGradeNode(Grade *g);
 void deconstructGradeNode(GradeNode *n);
-void addGrade(GradeNode *head, char *name, float grade);
+void addGrade(GradeNode **head, char *name, int grade);
 
 #endif
