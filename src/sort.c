@@ -9,19 +9,19 @@ void swap(StudentNode* low, StudentNode* high){
 }
 
 int partition(StudentNode *head, StudentNode *tail, int low, int high){
-	Student lowest = head->data;//p
-	Student highest = tail->data;//p
+	StudentNode lowest = head;//p
+	StudentNode highest = tail;//p
 	int i = low;
 	int j = high;
-	Student p = first;
+	StudentNode p = lowest;
 	
 	while(i<j){
-		while(lowest->id <= p->id &&  i<= high-1){//think high > high-1
+		while(lowest->data->id <= p->data->id &&  i<= high-1){//think high > high-1
 			i++;
 			lowest = lowest->next;
 		}
 		
-		while(highest > p->data && j>=low+1){
+		while(highest->data->id > p->data->id && j>=low+1){
 			j--;
 			highest = highest->next;
 		}
@@ -39,6 +39,7 @@ void quickSortID(StudentNode * first, StudentNode * last, int low, int high){
 		
 		quickSort(first, last, low, pi-1);
 		quickSort(first, last, pi+1, high);
-			
+	}
+}
 			
 			
