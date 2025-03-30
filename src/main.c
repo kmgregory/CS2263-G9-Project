@@ -1,6 +1,6 @@
 /* main.c
  * 
- * By Group 8:
+ * By Group 9:
  * 	Kamren M. Gregory - 3759472
  * 	Anush Matevosyan - 3758790
  * 	Sharmila Sadia Ahmed - 3741966

@@ -1,3 +1,12 @@
+/* studentFile.c
+ * 
+ * By Group 9:
+ * 	Kamren M. Gregory - 3759472
+ * 	Anush Matevosyan - 3758790
+ * 	Sharmila Sadia Ahmed - 3741966
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
