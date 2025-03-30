@@ -21,10 +21,10 @@ typedef struct {
 	
 } Grade;
 
-typedef struct {
+typedef struct GradeNode {
 	
 	Grade *data;
-	GradeNode *next;
+	struct GradeNode *next;
 	
 } GradeNode;
 

@@ -14,6 +14,7 @@ Grade *constructGrade(const char *courseNum, float gradePercent) {
 	Grade *g = malloc(sizeof(Grade));
 	g->courseNum = strdup(courseNum);
 	g->gradePercent = gradePercent;
+	return g;
 	
 } // constructGrade()
 
@@ -30,6 +31,7 @@ GradeNode *constructGradeNode(Grade *g) {
 	GradeNode *n = malloc(sizeof(GradeNode));
 	n->data = g;
 	n->next = NULL;
+	return n;
 	
 } //constructGradeNode()
 

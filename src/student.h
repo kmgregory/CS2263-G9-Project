@@ -21,7 +21,7 @@ typedef struct {
 
 } Student;
 
-typedef struct {
+typedef struct StudentNode {
 	
 	Student *data;
 	struct StudentNode *next;
@@ -29,12 +29,13 @@ typedef struct {
 } StudentNode;
 
 // Function Prototypes
-Student *constructStudent(char *name, int id);
-void *deconstructStudent(Student *s);
-void *deconstructGrades(GradeNode *head);
+Student *constructStudent(int id, const char *name);
+void deconstructStudent(Student *s);
+void deconstructGrades(GradeNode *head);
 StudentNode *constructStudentNode(Student *s);
-void *deconstructStudentNode(StudentNode *n);
-void addStudent(StudentNode *head, const char *name, int id);
+void deconstructStudentNode(StudentNode *n);
+void addStudent(StudentNode *head, int id, const char *name);
+void removeStudent(StudentNode *head, int id);
 void printStudentInfo(const Student *s);
 float calculateGPA(Grade* grades, int count);
 void sortByID(Student *students, int count);

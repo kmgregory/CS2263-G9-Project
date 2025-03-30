@@ -80,7 +80,7 @@ void write_csv(int id, char name[], char course[], char grade[]) {
     fprintf(file, "%d, %s, %s, %s\n", id, name, course, grade);
     fclose(file);
 }
-
+/*
 int main() {
     int id;
     char name[MAX_NAME_LENGTH];
@@ -121,3 +121,4 @@ int main() {
     printf("Program exited.\n");
     return 0;
 }
+*/

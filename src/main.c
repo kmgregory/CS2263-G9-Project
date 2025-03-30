@@ -6,15 +6,21 @@
  * 	Sharmila Sadia Ahmed - 3741966
  *
  */
- 
-// scanf(" %[^\n]", nameInput);
 
-#include "grade.c"
-#include "student.c"
+#include "grade.h"
+#include "student.h"
+
+void printMenu();
+void destroyList(StudentNode *head);
+void sortingList();
 
 int main(int argc, char** argv) {
 	
 	int choice = 0;
+	StudentNode *head = NULL;
+	
+	int *id = 0;
+	char *name = "";
 	
 	while(choice != -1) {
 		
@@ -23,38 +29,68 @@ int main(int argc, char** argv) {
 		
 		switch(choice) {
 			case 1: // Add student
-				// TODO
+				
+				printf("Enter the student's id: ");
+				scanf("%d", id);
+				
+				printf("Enter the student's name: ");
+				scanf(" %[^\n]", name);
+				
+				addStudent(head, *id, name);
+				
 				break;
 				
 			case 2: // Remove student
-				// TODO
+				
+				
+				printf("Enter the student's id: ");
+				scanf("%d", id);
+				
+				removeStudent(head, *id);
 				break;
-			
+				
 			case 3: // Add grade
+				
 				// TODO
+				printf("Not implemented\n");
 				break;
 			
 			case 4: // Sort list of students
-				sortListChosen();
-				break;
 			
+				// TODO
+				printf("Not implemented\n");
+				break;
+				
 			case 5: // Print list of students
-				// TODO
+				
+				StudentNode *p = head;
+				while(p != NULL) {
+					printStudentInfo(p->data);
+					p = p->next;
+				}
+				
 				break;
-			
+				
 			case 6: // Print grade bar chart
+				
 				// TODO
+				printf("Not implemented\n");
 				break;
 				
 			case -1:
 				break; // Exit
 				
 			default: // Invalid input
-				printf("Please select from the listed options\n.")
+				printf("Please select from the listed options\n.");
 				break;
 		}
 		
+		
+		
 	}
+	
+	destroyList(head);
+	return EXIT_SUCCESS;
 	
 } // main()
 
@@ -99,3 +135,17 @@ void sortingList() {
 	}
 	
 } // sortingList()
+
+void destroyList(StudentNode *head) {
+	
+	StudentNode *p = head;
+	StudentNode *q = head->next;
+	while(p != NULL) {
+		deconstructStudentNode(p);
+		p = q;
+		q = q->next;
+	}
+	
+	head = NULL;
+	
+}
