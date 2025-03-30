@@ -75,7 +75,7 @@ void addStudent(StudentNode **head, int id, char *name) {
 	Student *s = constructStudent(id, name);
 	StudentNode *n = constructStudentNode(s);
 	
-	if(head == NULL) {
+	if(*head == NULL) {
 		*head = n;
 		printf("Successfully added student '%d'\n", id);
 	}
