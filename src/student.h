@@ -16,7 +16,7 @@ typedef struct {
 
 	int id;
 	char *name;
-	GradeNode *gradesList;
+	GradeNode **gradesList;
 	float gpa;
 
 } Student;
@@ -29,15 +29,15 @@ typedef struct StudentNode {
 } StudentNode;
 
 // Function Prototypes
-Student *constructStudent(int id, const char *name);
+Student *constructStudent(int id, char *name);
 void deconstructStudent(Student *s);
-void deconstructGrades(GradeNode *head);
+void deconstructGrades(GradeNode **head);
 StudentNode *constructStudentNode(Student *s);
 void deconstructStudentNode(StudentNode *n);
-void addStudent(StudentNode *head, int id, const char *name);
-void removeStudent(StudentNode *head, int id);
+void addStudent(StudentNode **head, int id, char *name);
+void removeStudent(StudentNode **head, int id);
 void printStudentInfo(const Student *s);
-float calculateGPA(Grade* grades, int count);
+float calculateGPA(Grade** grades, int count);
 void sortByID(Student *students, int count);
 void sortByName(Student *students[], int count);
 void sortByGPA(Student *students, int count);

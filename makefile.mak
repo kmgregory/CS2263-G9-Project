@@ -30,5 +30,12 @@ $(BINDIR):
 $(BINDIR)/%.o: $(SRCDIR)/%.c 
 	$(GCC) $(CFLAGS) -c $< -o $@
 
+test:
+	$(VALGRIND) ./prog
+
+test+:
+	$(VALGRIND) $(VALGRIND+) ./prog
+
 clean:
-	rm -f $(BINDIR)/* *~ *.bak prog
+	rm -r $(BINDIR)
+	rm -f *~ *.bak prog valog

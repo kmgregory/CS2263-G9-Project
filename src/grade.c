@@ -11,7 +11,7 @@
 
 Grade *constructGrade(const char *courseNum, float gradePercent) {
 	
-	Grade *g = malloc(sizeof(Grade));
+	Grade *g = (Grade *)malloc(sizeof(Grade));
 	g->courseNum = strdup(courseNum);
 	g->gradePercent = gradePercent;
 	return g;
@@ -28,7 +28,7 @@ void deconstructGrade(Grade *g) {
 
 GradeNode *constructGradeNode(Grade *g) {
 	
-	GradeNode *n = malloc(sizeof(GradeNode));
+	GradeNode *n = (GradeNode *)malloc(sizeof(GradeNode));
 	n->data = g;
 	n->next = NULL;
 	return n;

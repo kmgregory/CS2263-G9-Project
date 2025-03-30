@@ -11,16 +11,16 @@
 #include "student.h"
 
 void printMenu();
-void destroyList(StudentNode *head);
+void destroyList(StudentNode **head);
 void sortingList();
 
 int main(int argc, char** argv) {
 	
 	int choice = 0;
-	StudentNode *head = NULL;
+	StudentNode **head = NULL;
 	
-	int *id = 0;
-	char *name = "";
+	int id = 0;
+	char name[50];
 	
 	while(choice != -1) {
 		
@@ -31,12 +31,12 @@ int main(int argc, char** argv) {
 			case 1: // Add student
 				
 				printf("Enter the student's id: ");
-				scanf("%d", id);
+				scanf("%d", &id);
 				
 				printf("Enter the student's name: ");
 				scanf(" %[^\n]", name);
 				
-				addStudent(head, *id, name);
+				addStudent(head, id, name);
 				
 				break;
 				
@@ -44,9 +44,9 @@ int main(int argc, char** argv) {
 				
 				
 				printf("Enter the student's id: ");
-				scanf("%d", id);
+				scanf("%d", &id);
 				
-				removeStudent(head, *id);
+				removeStudent(head, id);
 				break;
 				
 			case 3: // Add grade
@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
 				
 			case 5: // Print list of students
 				
-				StudentNode *p = head;
+				StudentNode *p = *head;
 				while(p != NULL) {
 					printStudentInfo(p->data);
 					p = p->next;
@@ -136,10 +136,13 @@ void sortingList() {
 	
 } // sortingList()
 
-void destroyList(StudentNode *head) {
+void destroyList(StudentNode **head) {
 	
-	StudentNode *p = head;
-	StudentNode *q = head->next;
+	if(head == NULL)
+		return;
+	
+	StudentNode *p = *head;
+	StudentNode *q = (*head)->next;
 	while(p != NULL) {
 		deconstructStudentNode(p);
 		p = q;

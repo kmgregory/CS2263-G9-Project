@@ -9,15 +9,16 @@
 
 #include "student.h"
 
-Student *constructStudent(int id, const char *name) {
+Student *constructStudent(int id,  char *name) {
 	
-	Student *s = malloc(sizeof(Student));
-	if(!s)
+	Student *s = (Student *)malloc(sizeof(Student));
+	if(!s) 
 		printf("Failed to allocate space for student %d\n", id);
 	
 	s->id = id;
 	s->name = strdup(name);
 	s->gradesList = NULL;
+	s->gpa = 0.0f;
 	
 	return s;
 	
@@ -33,10 +34,10 @@ void deconstructStudent(Student *s) {
 	
 } // deconstructStudent()
 
-void deconstructGrades(GradeNode *head) {
+void deconstructGrades(GradeNode **head) {
 	
-	GradeNode *p = head;
-	GradeNode *q = head->next;
+	GradeNode *p = *head;
+	GradeNode *q = (*head)->next;
 	while(q != NULL) {
 		
 		deconstructGradeNode(p);
@@ -51,7 +52,9 @@ void deconstructGrades(GradeNode *head) {
 
 StudentNode *constructStudentNode(Student *s) {
 	
-	StudentNode *n = malloc(sizeof(StudentNode));
+	StudentNode *n = (StudentNode *)malloc(sizeof(StudentNode));
+	if(!n)
+		printf("Failed to allocate space for node\n");
 	n->data = s;
 	n->next = NULL;
 	
@@ -67,18 +70,19 @@ void deconstructStudentNode(StudentNode *n) {
 	
 } // deconstructStudentNode()
 
-void addStudent(StudentNode *head, int id, const char *name) {
+void addStudent(StudentNode **head, int id, char *name) {
 	
 	Student *s = constructStudent(id, name);
 	StudentNode *n = constructStudentNode(s);
 	
 	if(head == NULL) {
-		head = n;
+		*head = n;
+		printf("Successfully added student '%d'\n", id);
 	}
 	
 	else {
 
-		StudentNode *p = head;
+		StudentNode *p = *head;
 		while(p->next != NULL)
 			p = p->next;
 		
@@ -89,7 +93,7 @@ void addStudent(StudentNode *head, int id, const char *name) {
 	
 } // addStudent()
 
-void removeStudent(StudentNode *head, int id) {
+void removeStudent(StudentNode **head, int id) {
 	
 	// Empty list
 	if(head == NULL) {
@@ -99,14 +103,14 @@ void removeStudent(StudentNode *head, int id) {
 		
 	}
 	
-	StudentNode *p = head;
-	StudentNode *q = head->next;
+	StudentNode *p = *head;
+	StudentNode *q = (*head)->next;
 	
 	// First student in list
-	if(head->data->id == id) {
+	if(p->data->id == id) {
 		
-		deconstructStudentNode(head);
-		head = q;
+		deconstructStudentNode(*head);
+		*head = q;
 		printf("Successfully removed student %d\n", id);
 		return;
 		
