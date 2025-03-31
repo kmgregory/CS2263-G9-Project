@@ -133,7 +133,9 @@ StudentNode* deepCopy(StudentNode* h){
 	while(ptr->next != NULL){
 		ptr = ptr->next;
 		addStudent(&copy, ptr->data->id, ptr->data->name);
-		copy->data->gpa = ptr->data->gpa;
+		while(ptr->next !=NULL){
+			copy->data->gpa = ptr->data->gpa;
+		}
 	}
 	return copy;
 } 

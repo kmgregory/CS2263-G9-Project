@@ -23,23 +23,23 @@ float calculateGPA(GradeNode **head) {
 		
 		grade = p->data->gradePercent;
 		
-		if(grade > 90) { gpSum += 4.3; }
+		if(grade >= 90) { gpSum += 4.3; }
 		
-		else if(grade >85) { gpSum += 4.0; }
+		else if(grade >=85) { gpSum += 4.0; }
 		
-		else if(grade >80) { gpSum += 3.7; }
+		else if(grade >=80) { gpSum += 3.7; }
 		
-		else if(grade >75) { gpSum += 3.3; }
+		else if(grade >=75) { gpSum += 3.3; }
 		
-		else if(grade >70) { gpSum += 3.0; }
+		else if(grade >=70) { gpSum += 3.0; }
 		
-		else if(grade >65) { gpSum += 2.7; }
+		else if(grade >=65) { gpSum += 2.7; }
 		
-		else if(grade > 60) { gpSum += 2.3; }
+		else if(grade >= 60) { gpSum += 2.3; }
 		
-		else if(grade > 55) { gpSum += 2.0; }
+		else if(grade >= 55) { gpSum += 2.0; }
 		
-		else if(grade >50) { gpSum += 1.0; }
+		else if(grade >=50) { gpSum += 1.0; }
 		
 		else { gpSum += 0.0f; }
 		
