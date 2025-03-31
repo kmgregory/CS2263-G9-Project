@@ -1,6 +1,6 @@
 /* student.h
  * 
- * By Group 8:
+ * By Group 9:
  * 	Kamren M. Gregory - 3759472
  * 	Anush Matevosyan - 3758790
  * 	Sharmila Sadia Ahmed - 3741966
@@ -12,30 +12,36 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#define MAX_NAME_LENGTH 40
-
 typedef struct {
+
 	int id;
-	char name[MAX_NAME_LENGTH];
-	Grade *grades;
+	char *name;
+	GradeNode *gradesListHead;
 	float gpa;
 
 } Student;
 
-Student *constructStudent(const char *name, int id) {
-	Student *s = malloc(sizeof(Student));
-	s->id = id;
-	strcpy(s->name, name);
-	return s;
-}
+typedef struct StudentNode {
+	
+	Student *data;
+	struct StudentNode *next;
+	
+} StudentNode;
 
 // Function Prototypes
-void addStudent(Student *students[], int *count, int *listSize, const char *name, int id);
+Student *constructStudent(int id, char *name);
+void deconstructStudent(Student *s);
+void deconstructGrades(GradeNode **head);
+StudentNode *constructStudentNode(Student *s);
+void deconstructStudentNode(StudentNode *n);
+void addStudent(StudentNode **head, int id, char *name);
+void removeStudent(StudentNode **head, int id);
 void printStudentInfo(const Student *s);
-float calculateGPA(Grade* grades, int count);
+StudentNode *findStudent(StudentNode **head, int id);
+float calculateGPA(GradeNode **head);
 void sortByID(Student *students, int count);
 void sortByName(Student *students[], int count);
 void sortByGPA(Student *students, int count);
-void printBarChart(Student* student);
+void printBarChart(const Student* student);
 
 #endif

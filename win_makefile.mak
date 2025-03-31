@@ -1,4 +1,4 @@
-# makefile.mak
+# win_makefile.mak
 
 # By Group 8:
 #  Kamren M. Gregory - 3759472
@@ -18,8 +18,6 @@ OBJS = $(SRCS:$(SRCDIR)/%.c=$(BINDIR)/%.o) # OBJS = bin/main.o, etc.
 
 GCC = gcc
 CFLAGS = -g -Wall -Wshadow
-VALGRIND = valgrind --tool=memcheck --leak-check=full
-VALGRIND+ = --verbose --log-file=valog
 
 all: $(BINDIR) $(OBJS)
 	$(GCC) $(CFLAGS) $(OBJS) -o prog
@@ -30,12 +28,6 @@ $(BINDIR):
 $(BINDIR)/%.o: $(SRCDIR)/%.c 
 	$(GCC) $(CFLAGS) -c $< -o $@
 
-test:
-	$(VALGRIND) ./prog
-
-test+:
-	$(VALGRIND) $(VALGRIND+) ./prog
-
 clean:
-	rm -r $(BINDIR)
-	rm -f *~ *.bak prog valog
+	del $(BINDIR)
+	del prog.exe

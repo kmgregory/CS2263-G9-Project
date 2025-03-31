@@ -1,140 +1,186 @@
 /* main.c
  * 
- * By Group 8:
+ * By Group 9:
  * 	Kamren M. Gregory - 3759472
  * 	Anush Matevosyan - 3758790
  * 	Sharmila Sadia Ahmed - 3741966
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "grade.h"
 #include "student.h"
+
+#define MAX_NAME_LEN 50
+
+void printMenu();
+void destroyList(StudentNode **head);
+void sortingList();
 
 int main(int argc, char** argv) {
 	
 	int choice = 0;
-	int listSize = 2;
-	int numStudents = 0;
-	Student **studentList = malloc(sizeof(Student) * listSize);
+	StudentNode *head = NULL;
 	
+	int id = 0;
+	char name[MAX_NAME_LEN];
+	int gradePercent = 0;
+	StudentNode *n = NULL;
+	StudentNode *p = NULL;
 	
-	while(choice != 7) {
-	
-		printf("\nPlease select from the following options:\n");
-		printf("1. Add student\n");
-		printf("2. Remove student\n");
-		printf("3. Add grade\n");
-		printf("4. Sort list of students\n");
-		printf("5. Print list of students\n");
-		printf("6. Print grade bar chart\n");
-		printf("7. Exit\n");
+	while(choice != -1) {
+		
+		printMenu();
 		scanf("%d", &choice);
 		
 		switch(choice) {
-			
-			case 1:
+			case 1: // Add student
 				
-				int idInput = 0;
-				printf("\nEnter the student's id: ");
-				scanf("%d", &idInput);
+				printf("Enter the student's id: ");
+				scanf("%d", &id);
 				
-				char nameInput[MAX_NAME_LENGTH];
 				printf("Enter the student's name: ");
-				scanf(" %[^\n]", nameInput);
+				scanf(" %[^\n]", name);
 				
-				Student *s = constructStudent(nameInput, idInput);
-				studentList[numStudents++] = s;
-				printf("Student successfully added.\n");
+				addStudent(&head, id, name);
 				
-				if((float) numStudents / listSize >= 0.5f) { // Keep load factor < 0.5
-					listSize = listSize * 2;
-					studentList = realloc(studentList, sizeof(Student) * listSize);
-					printf("Doubled student array size. Now %d\n", listSize);
+				break;
+				
+			case 2: // Remove student
+				
+				
+				printf("Enter the student's id: ");
+				scanf("%d", &id);
+				
+				removeStudent(&head, id);
+				break;
+				
+			case 3: // Add grade
+				
+				printf("Enter the student's id: ");
+				scanf("%d", &id);
+				
+				printf("Enter the course number (ex. CS2263): ");
+				scanf(" %[^\n]", name);
+				
+				printf("Enter the grade percent without %% (ex. 93): ");
+				scanf("%d", &gradePercent);
+				
+				n = findStudent(&head, id);
+				if(n == NULL) 
+					break;
+				printf("Found Student.\n");
+				
+				addGrade(&n->data->gradesListHead, name, gradePercent);
+				printf("Successfully added grade.\n");
+				
+				n->data->gpa = calculateGPA(&n->data->gradesListHead);
+				printf("Student %d's GPA is now %.2f.\n", n->data->id, n->data->gpa);
+				
+				break;
+			
+			case 4: // Sort list of students
+			
+				// TODO
+				printf("Not implemented\n");
+				break;
+				
+			case 5: // Print list of students
+				
+				p = head;
+				while(p != NULL) {
+					printStudentInfo(p->data);
+					p = p->next;
 				}
 				
 				break;
 				
-			case 2:
+			case 6: // Print grade bar chart
 				
-				printf("Not yet implemented.\n");
-				break;
+				printf("Enter the student's id: ");
+				scanf("%d", &id);
 				
-			case 3:
+				n = findStudent(&head, id);
+				if(n == NULL) 
+					break;
 				
-				printf("Not yet implemented.\n");
-				break;
-				
-			case 4:
-				
-				int sortchoice = 0;
-				
-				printf("\nSelect one of the following:\n");
-				printf("1. Sort by id\n");
-				printf("2. Sort by name\n");
-				printf("3. Sort by GPA\n");
-				scanf(" %d", &sortchoice);
-				
-				switch(sortchoice) {
-					case 1:
-						
-						printf("Not yet implemented.\n");
-						break;
-						
-					case 2:
-						
-						printf("Not yet implemented.\n");
-						break;
-						
-					case 3:
-						
-						printf("Not yet implemented.\n");
-						break;
-						
-					default:
-						
-						printf("Invalid selection. Cancelling sort.\n");
-						break;
-						
-				}
-				
+				Student *s = n->data;
+				printBarChart(s);
 				
 				break;
 				
-			case 5:
+			case -1:
+				break; // Exit
 				
-				printf("---------------------------------------------------------\n");
-				printf("ID        Name                                    GPA\n");
-				
-				for(int i = 0; i < numStudents; i++)
-						printStudentInfo(studentList[i]);
-				
-				printf("---------------------------------------------------------\n");
+			default: // Invalid input
+				printf("Please select from the listed options\n.");
 				break;
-				
-			case 6:
-				
-				printf("Not yet implemented.\n");
-				break;
-				
-			case 7:
-				
-				for(int i = 0; i < numStudents; i++)
-					free(studentList[i]);
-				free(studentList);
-				printf("Goodbye.\n");
-				break;
-				
-			default:
-				
-				printf("Invalid selection. Choose from 1-7\n");
-				break;
+		}
 		
-		} // end switch
-	} // end while
-} // end main
+		
+		
+	}
+	
+	destroyList(&head);
+	return EXIT_SUCCESS;
+	
+} // main()
 
-void printStudentInfo(const Student *s) {
-	printf("%-10d%-40s%-1f\n", s->id, s->name, s->gpa);
+void printMenu() {
+
+	printf("\nPlease select from the following options:\n");
+	printf("1. Add student,\n");
+	printf("2. Remove student,\n");
+	printf("3. Add grade,\n");
+	printf("4. Sort list of students,\n");
+	printf("5. Print list of students,\n");
+	printf("6. Print grade bar chart.\n");
+	printf("Select '-1' to exit.\n");
+
+} // printMenu()
+
+void sortingList() {
+	
+	printf("\nSelect one of the following:\n");
+	printf("1. Sort by ID,\n");
+	printf("2. Sort by name,\n");
+	printf("3. Sort by GPA.\n");
+	
+	int sortChoice = 0;
+	scanf(" %d", &sortChoice);
+	
+	switch(sortChoice) {
+		case 1: // sort by ID
+			// TODO
+			break;
+		
+		case 2: // sort by name
+			//TODO
+			break;
+		
+		case 3: // sort by GPA
+			//TODO
+			break;
+		
+		default:
+			printf("Invalid choice, cancelling sorting.\n");
+	}
+	
+} // sortingList()
+
+void destroyList(StudentNode **head) {
+	
+	if(*head == NULL)
+		return;
+	
+	StudentNode *p = *head;
+	StudentNode *q = p->next;
+	while(q != NULL) {
+		deconstructStudentNode(p);
+		p = q;
+		q = q->next;
+	}
+	
+	deconstructStudentNode(p);
+	head = NULL;
+	
 }

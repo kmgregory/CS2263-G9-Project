@@ -1,3 +1,12 @@
+/* studentFile.c
+ * 
+ * By Group 9:
+ * 	Kamren M. Gregory - 3759472
+ * 	Anush Matevosyan - 3758790
+ * 	Sharmila Sadia Ahmed - 3741966
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -80,7 +89,7 @@ void write_csv(int id, char name[], char course[], char grade[]) {
     fprintf(file, "%d, %s, %s, %s\n", id, name, course, grade);
     fclose(file);
 }
-
+/*
 int main() {
     int id;
     char name[MAX_NAME_LENGTH];
@@ -121,3 +130,4 @@ int main() {
     printf("Program exited.\n");
     return 0;
 }
+*/
