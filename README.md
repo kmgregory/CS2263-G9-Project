@@ -8,3 +8,5 @@ Anush Matevosyan 3758790
 
 Sharmila Sadia Ahmed 3741966
 
+## User Guide
+### Initial setup
