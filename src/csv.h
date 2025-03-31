@@ -13,7 +13,6 @@
 int file_exists(const char *filename);
 void initialize_csv();
 void read_csv();
-int is_valid_grade(char *grade);
 void write_csv(int id, char name[], char course[], char grade[]);
 
 #endif
