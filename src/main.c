@@ -24,6 +24,8 @@ int main(int argc, char** argv) {
 	int id = 0;
 	char name[MAX_NAME_LEN];
 	int gradePercent = 0;
+	StudentNode *n = NULL;
+	StudentNode *p = NULL;
 	
 	while(choice != -1) {
 		
@@ -63,7 +65,7 @@ int main(int argc, char** argv) {
 				printf("Enter the grade percent without %% (ex. 93): ");
 				scanf("%d", &gradePercent);
 				
-				StudentNode *n = findStudent(&head, id);
+				n = findStudent(&head, id);
 				if(n == NULL) 
 					break;
 				printf("Found Student.\n");
@@ -84,7 +86,7 @@ int main(int argc, char** argv) {
 				
 			case 5: // Print list of students
 				
-				StudentNode *p = head;
+				p = head;
 				while(p != NULL) {
 					printStudentInfo(p->data);
 					p = p->next;
@@ -94,8 +96,16 @@ int main(int argc, char** argv) {
 				
 			case 6: // Print grade bar chart
 				
-				// TODO
-				printf("Not implemented\n");
+				printf("Enter the student's id: ");
+				scanf("%d", &id);
+				
+				n = findStudent(&head, id);
+				if(n == NULL) 
+					break;
+				
+				Student *s = n->data;
+				printBarChart(s);
+				
 				break;
 				
 			case -1:
