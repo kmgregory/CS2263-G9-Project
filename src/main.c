@@ -8,10 +8,14 @@
  */
 
 #include "grade.h"
-#include "student.h"
-
+#include "student.c"
+#include "calculateGPA.c"
+#include "sortbygpa.c"
+#include "quicksort.c"
+#include "sortbyname.c"
 #define MAX_NAME_LEN 50
 
+StudentNode* deepCopy(StudentNode* h);
 void printMenu();
 void destroyList(StudentNode **head);
 void sortingList();
@@ -79,6 +83,8 @@ int main(int argc, char** argv) {
 			case 4: // Sort list of students
 			
 				// TODO
+				//StudentNode* one = constructStudentNode(head->data);
+				sortingList(head);
 				printf("Not implemented\n");
 				break;
 				
@@ -101,6 +107,7 @@ int main(int argc, char** argv) {
 			case -1:
 				break; // Exit
 				
+				
 			default: // Invalid input
 				printf("Please select from the listed options\n.");
 				break;
@@ -115,6 +122,20 @@ int main(int argc, char** argv) {
 	
 } // main()
 
+StudentNode* deepCopy(StudentNode* h){
+	StudentNode* copy =NULL;
+	if(h->data == NULL){
+		return NULL;
+	}
+	addStudent(&copy, h->data->id, h->data->name);
+	StudentNode * ptr = h;
+	while(ptr->next != NULL){
+		ptr = ptr->next;
+		addStudent(&copy, ptr->data->id, ptr->data->name);
+	}
+	return copy;
+} 
+
 void printMenu() {
 
 	printf("\nPlease select from the following options:\n");
@@ -128,7 +149,7 @@ void printMenu() {
 
 } // printMenu()
 
-void sortingList() {
+void sortingList(StudentNode* head) {
 	
 	printf("\nSelect one of the following:\n");
 	printf("1. Sort by ID,\n");
@@ -137,24 +158,57 @@ void sortingList() {
 	
 	int sortChoice = 0;
 	scanf(" %d", &sortChoice);
-	
+	StudentNode* copy = deepCopy(head);
+	StudentNode *s;
 	switch(sortChoice) {
 		case 1: // sort by ID
+		
 			// TODO
+			StudentNode* sortedID = quickSortID(copy);
+			s = sortedID;
+			while(s != NULL) {
+				printStudentInfo(s->data);
+				s = s->next;
+			}
+
 			break;
 		
 		case 2: // sort by name
 			//TODO
+			StudentNode* sortedName = quickSortName(copy);
+			s = sortedName;
+			while(s != NULL) {
+				printStudentInfo(s->data);
+				s = s->next;
+			}
+				
 			break;
 		
 		case 3: // sort by GPA
 			//TODO
+			StudentNode* sortedGpa = quickSortGpa(copy);
+			s = sortedGpa;
+			while(s != NULL) {
+				printStudentInfo(s->data);
+				s = s->next;
+			}
+
 			break;
 		
 		default:
 			printf("Invalid choice, cancelling sorting.\n");
 	}
-	
+	StudentNode *p = copy;
+	StudentNode *q = p->next;
+	while(q != NULL) {
+		deconstructStudentNode(p);
+		p = q;
+		q = q->next;
+	}
+		
+	deconstructStudentNode(p);
+	copy = NULL;
+
 } // sortingList()
 
 void destroyList(StudentNode **head) {
