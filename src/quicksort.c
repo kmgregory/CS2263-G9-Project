@@ -2,9 +2,8 @@
 #include <stdio.h>
 //#include "student.c"
 
-
 // Partition the list around the pivot
-StudentNode* partition(StudentNode* head, StudentNode** left, StudentNode** right) {
+StudentNode* partitionID(StudentNode* head, StudentNode** left, StudentNode** right) {
     StudentNode* pivot = head;
     *left = NULL;
     *right = NULL;
@@ -15,7 +14,8 @@ StudentNode* partition(StudentNode* head, StudentNode** left, StudentNode** righ
         if (current->data->id < pivot->data->id) {
             current->next = *left;
             *left = current;
-        } else {
+        }
+        else{
             current->next = *right;
             *right = current;
         }
@@ -27,26 +27,28 @@ StudentNode* partition(StudentNode* head, StudentNode** left, StudentNode** righ
 }
 
 // Recursive Quick Sort
-StudentNode* quickSort(StudentNode* head) {
+StudentNode* quickSortID(StudentNode* head) {
     if (!head || !head->next) {
         return head;
     }
 
-    StudentNode *left = NULL, *right = NULL;
-    StudentNode* pivot = partition(head, &left, &right);
+    StudentNode *left = NULL;
+    StudentNode *right = NULL;
+    StudentNode* pivot = partitionID(head, &left, &right);
 
     // Sort left and right partitions recursively
-    left = quickSort(left);
-    right = quickSort(right);
+    left = quickSortID(left);
+    right = quickSortID(right);
 
     // Merge sorted left, pivot, and sorted right
-    if (left) {
+    if(left) {
         StudentNode* temp = left;
-        while (temp->next) {
+        while(temp->next) {
             temp = temp->next;
         }
         temp->next = pivot;
-    } else {
+    }
+    else{
         left = pivot;
     }
 
