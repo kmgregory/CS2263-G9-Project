@@ -12,13 +12,6 @@
 #include <string.h>
 
 #define FILE_NAME "students.csv"
-#define MAX_NAME_LENGTH 100
-#define MAX_COURSE_LENGTH 100
-#define MAX_GRADE_LENGTH 3  // Maximum length for grades like "A+" and "WF"
-
-// List of valid grades
-const char *valid_grades[] = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "D", "F", "WF"};
-const int num_valid_grades = 11; // Number of valid grades
 
 // Function to check if the file exists
 int file_exists(const char *filename) {
@@ -68,16 +61,6 @@ void read_csv() {
     fclose(file);
 }
 
-// Function to validate the grade
-int is_valid_grade(char *grade) {
-    for (int i = 0; i < num_valid_grades; i++) {
-        if (strcmp(grade, valid_grades[i]) == 0) {
-            return 1;  // Grade is valid
-        }
-    }
-    return 0;  // Grade is invalid
-}
-
 // Function to write new student records
 void write_csv(int id, char name[], char course[], char grade[]) {
     FILE *file = fopen(FILE_NAME, "a");  // Open in append mode
@@ -86,48 +69,7 @@ void write_csv(int id, char name[], char course[], char grade[]) {
         return;
     }
 
-    fprintf(file, "%d, %s, %s, %s\n", id, name, course, grade);
+    fprintf(file, "%d,%s,%s,%s\n", id, name, course, grade);
     fclose(file);
 }
-/*
-int main() {
-    int id;
-    char name[MAX_NAME_LENGTH];
-    char course[MAX_COURSE_LENGTH];
-    char grade[MAX_GRADE_LENGTH];
 
-    // Ensure CSV file exists with headers
-    initialize_csv();
-
-    // Read previous records when the program starts
-    read_csv();
-
-    while (1) {
-        printf("\nEnter student ID (or -1 to exit): ");
-        scanf("%d", &id);
-        if (id == -1) break;
-
-        printf("Enter student name: ");
-        scanf(" %[^\n]", name);
-
-        printf("Enter course name: ");
-        scanf(" %[^\n]", course);
-
-        while (1) {
-            printf("Enter student grade (A+, A, A-, B+, B, B-, C+, C, D, F, WF): ");
-            scanf(" %s", grade);
-
-            if (is_valid_grade(grade)) {
-                break; // Valid grade, exit loop
-            }
-            printf("Invalid grade! Please enter a valid grade.\n");
-        }
-
-        write_csv(id, name, course, grade);
-        printf("Record added successfully!\n");
-    }
-
-    printf("Program exited.\n");
-    return 0;
-}
-*/
