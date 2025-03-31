@@ -8,6 +8,7 @@
  */
 
 #include "student.h"
+#include "grade.c"
 
 Student *constructStudent(int id,  char *name) {
 	
@@ -17,7 +18,7 @@ Student *constructStudent(int id,  char *name) {
 	
 	s->id = id;
 	s->name = strdup(name);
-	s->gradesListHead = NULL;
+	//s->gradesListHead = NULL;
 	s->gpa = 0.0f;
 	
 	return s;
@@ -27,7 +28,7 @@ Student *constructStudent(int id,  char *name) {
 void deconstructStudent(Student *s) {
 	
 	free(s->name);
-	deconstructGrades(&s->gradesListHead);
+	//deconstructGrades(&s->gradesListHead);
 	free(s);
 	s = NULL;
 	
@@ -68,8 +69,9 @@ StudentNode *constructStudentNode(Student *s) {
 } // constructStudentNode()
 
 void deconstructStudentNode(StudentNode *n) {
-	
+	//printf("%p\n", n->data); 
 	deconstructStudent(n->data);
+	//printf("%p\n", n); 
 	free(n);
 	n = NULL;
 	
@@ -78,8 +80,13 @@ void deconstructStudentNode(StudentNode *n) {
 void addStudent(StudentNode **head, int id, char *name) {
 	
 	Student *s = constructStudent(id, name);
+	if(s == NULL){
+		printf("error");
+	}
 	StudentNode *n = constructStudentNode(s);
-	
+	if(n==NULL){
+		printf("error");
+	}
 	if(*head == NULL) {
 		*head = n;
 		printf("Successfully added student '%d'\n", id);

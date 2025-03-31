@@ -19,100 +19,85 @@ StudentNode* quickSortHelper(StudentNode* head){
 	if(head==NULL || head->next == NULL){
 		return head;
 	}
-	
+	printf("inside quickSortHelper\n");
 	StudentNode* lowerHead = NULL;
-	StudentNode* lowerTail = NULL;
+	//StudentNode* lowerTail = NULL;
 	StudentNode* higherHead = NULL;
-	StudentNode* higherTail = NULL;
+	//StudentNode* higherTail = NULL;
 	StudentNode* p = head;
 	StudentNode* curr = head->next;
 	
 	while(curr!=NULL){
+		printf("inside while\n");
 		StudentNode* next = curr->next;
 		curr->next = NULL;
 		if(curr->data->id < p->data->id){
-			 if(lowerHead ==NULL){
-			 	lowerHead = curr;
-			 	lowerTail = curr;
-			 }
-			 else{
-			 	lowerTail->next = curr;
-			 	lowerTail = curr;
-			 }
+			printf("inside if #1\n");
+			printf("%p", lowerHead);
+			if(lowerHead ==NULL){
+				printf("lowerhead == NULL");
+				lowerHead = curr;
+				//lowerTail = curr;
+			}
+			else{
+				printf("lowerhead !=NULL");
+				StudentNode* tail = lowerHead;
+				while(tail->next !=NULL){
+					printf("looping thoruhg tail");
+					tail = tail->next;
+				}
+				tail->next = curr;
+			 	//lowerTail->next = curr;
+			 	//lowerTail = curr;
+			}
 		}
 		else{
+			printf("inside else");
 			if(higherHead ==NULL){
 			 	higherHead = curr;
-			 	higherTail = curr;
+			 	//higherTail = curr;
 			 }
 			 else{
-			 	higherTail->next = curr;
-			 	higherTail = curr;
+			 	StudentNode* tail = higherHead;
+			 	while(tail->next !=NULL){
+			 		tail = tail->next;
+			 	}
+			 	tail->next = curr;
+			 	//higherTail->next = curr;
+			 	//higherTail = curr;
 			 }	
 		}
+		printf("outside if else");
 		curr = next;
 	}
 	p->next = NULL;
 	lowerHead = quickSortHelper(lowerHead);
 	higherHead = quickSortHelper(higherHead);
 	
-	//StudentNode* pivot = partition(head, tail);
-	/*StudentNode* here = lowerHead;
-	while(here != NULL){
-		printf("here low: %p, %d\n", here, here->data->id);
-		here = here->next;
-	}
-	lowerHead = quickSortHelper(lowerHead);
-	here = higherHead;
-	while(here != NULL){
-		printf("here high: %p, %d\n", here, here->data->id);
-		here = here->next;
-	}*/
 	StudentNode* newHead = p;
 	if(lowerHead !=NULL){
 		newHead = lowerHead;
-		lowerTail->next = p;
+		StudentNode* hold = newHead;
+		while(hold->next !=NULL){
+			hold - hold->next;
+		}
+		hold->next = p;
 	}
-	/*
-	if(lowerTail!=NULL){
-		lowerTail->next = p;
-	}
-	p->next = higherHead;  
-	/*if(lowerHead){
-		printf("in lowerHead\n");
-		lowerTail->next = p;
-	}
-	else{
-		printf("in lowerHead else\n");
-		lowerHead = p;
-	}*//*
-	if(lowerTail){
-		printf("in lowertail\n");
-		lowerTail->next = p;
-	}
-	*/
 	p->next = higherHead;
 	
 	return newHead;
 }
 
 void quickSortID(StudentNode ** head){
-	printf("head: %d\n", (*head)->data->id);
 	StudentNode* copy = deepCopy(*head);
 	copy = quickSortHelper(copy);
-	/*StudentNode *p = copy;
-	while(p != NULL) {
-		printf("%d: %s (%.2f)\n", p->data->id, p->data->name, p->data->gpa);
-		p = p->next;
-	}*/
-
+	
 	if(copy == NULL)
 		return;
 	
 	StudentNode *p = copy;
-	//StudentNode *p = head;
 	while(p != NULL) {
-		printf("%d: %s (%.2f)\n", p->data->id, p->data->name, p->data->gpa);
+		printf("\n%d: %s (%.2f)\n", p->data->id, p->data->name, p->data->gpa);
 		p = p->next;
 	}
 	p = copy;	
