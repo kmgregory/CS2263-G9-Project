@@ -38,4 +38,4 @@ test+:
 
 clean:
 	rm -r $(BINDIR)
-	rm -f *~ *.bak prog valog
+	rm -f *~ *.bak prog valog *.csv

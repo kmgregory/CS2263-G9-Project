@@ -42,6 +42,6 @@ float calculateGPA(GradeNode **head);
 void sortByID(Student *students, int count);
 void sortByName(Student *students[], int count);
 void sortByGPA(Student *students, int count);
-void printBarChart(Student* student);
+void printBarChart(const Student* student);
 
 #endif

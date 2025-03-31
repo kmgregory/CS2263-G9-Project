@@ -9,6 +9,11 @@
 
 #include "student.h"
 
+#define RED "\x1B[31m"
+#define GREEN "\x1B[32m"
+#define BLUE "\x1B[34m"
+#define NORMAL "\x1B[0m"
+
 Student *constructStudent(int id,  char *name) {
 	
 	Student *s = (Student *)malloc(sizeof(Student));
@@ -36,7 +41,7 @@ void deconstructStudent(Student *s) {
 
 void deconstructGrades(GradeNode **head) {
 	
-	if(head == NULL)
+	if(*head == NULL)
 		return;
 	
 	GradeNode *p = *head;
@@ -161,12 +166,54 @@ void printStudentInfo(const Student *s) {
 	printf("%d: %s (%.2f)\n", s->id, s->name, s->gpa);
 } // printStudentInfo()
 
+void printBarChart(const Student* student) {
+	
+	if(student == NULL) {
+	
+		printf("No student provided.\n");
+		return;
+		
+	}
+	
+	if(student->gradesListHead == NULL) {
+		
+		printf("Student has no grades.\n");
+		return;
+		
+	}
+	
+	GradeNode *p = student->gradesListHead;
+	int run = 0;
+	printStudentInfo(student);
+	
+	while(p != NULL) {
+		
+		// cycle through RGB for bar graph
+		if(run % 3 == 0)
+			printf("%s", RED);
+		if(run % 3 == 1)
+			printf("%s", GREEN);
+		if(run % 3 == 2)
+			printf("%s", BLUE);
+		
+		printf("%s: ", p->data->courseNum);
+		for(int i = 0; i <= p->data->gradePercent / 10; i++)
+			printf("#");
+		printf(" (%d)\n", p->data->gradePercent);
+		
+		p = p->next;
+		
+		run++;
+	}
+	
+	printf("%s", NORMAL); // set text colour to normal
+	
+}
+
 /*
 Unimplemented Functions
 -----------------------
-float calculateGPA(Grade* grades, int count);
 void sortByID(Student *students, int count);
 void sortByName(Student *students[], int count);
 void sortByGPA(Student *students, int count);
-void printBarChart(Student* student);
 */
