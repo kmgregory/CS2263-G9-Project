@@ -41,7 +41,7 @@ void deconstructStudent(Student *s) {
 
 void deconstructGrades(GradeNode **head) {
 	
-	if(head == NULL)
+	if(*head == NULL)
 		return;
 	
 	GradeNode *p = *head;
@@ -184,6 +184,7 @@ void printBarChart(const Student* student) {
 	
 	GradeNode *p = student->gradesListHead;
 	int run = 0;
+	printStudentInfo(student);
 	
 	while(p != NULL) {
 		
@@ -195,6 +196,7 @@ void printBarChart(const Student* student) {
 		if(run % 3 == 2)
 			printf("%s", BLUE);
 		
+		printf("%s: ", p->data->courseNum);
 		for(int i = 0; i <= p->data->gradePercent / 10; i++)
 			printf("#");
 		printf(" (%d)\n", p->data->gradePercent);
