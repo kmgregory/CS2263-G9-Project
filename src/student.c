@@ -157,7 +157,6 @@ StudentNode *findStudent(StudentNode **head, int id) {
 		p = p->next;
 	}
 	
-	printf("Could not find student %d", id);
 	return p;
 	
 } // findStudent()
