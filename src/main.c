@@ -139,6 +139,7 @@ StudentNode* deepCopy(StudentNode* h){
 		}
 		runner->data->gpa = ptr->data->gpa;
 	}
+	
 	return copy;
 } 
 
@@ -204,7 +205,8 @@ void sortingList(StudentNode* head) {
 		default:
 			printf("Invalid choice, cancelling sorting.\n");
 	}
-	StudentNode *p = copy;
+	destroyList(&copy);
+	/*StudentNode *p = copy;
 	StudentNode *q = p->next;
 	while(q != NULL) {
 		deconstructStudentNode(p);
@@ -213,7 +215,7 @@ void sortingList(StudentNode* head) {
 	}
 		
 	deconstructStudentNode(p);
-	copy = NULL;
+	copy = NULL;*/
 
 } // sortingList()
 
