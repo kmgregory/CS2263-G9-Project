@@ -31,3 +31,4 @@ $(BINDIR)/%.o: $(SRCDIR)/%.c
 clean:
 	del $(BINDIR)
 	del prog.exe
+	del *.csv

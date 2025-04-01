@@ -10,14 +10,12 @@
 #include "grade.h"
 #include "student.h"
 #include "csv.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "sort.h"
 
 #define MAX_NAME_LEN 50
 
 void printMenu();
-void sortingList();
+void sortingList(StudentNode *head);
 void destroyList(StudentNode **head);
 void loadLinkedListFromCSV(StudentNode **head);
 void saveLinkedListToCSV(StudentNode *head);
@@ -82,7 +80,7 @@ int main(int argc, char** argv) {
 			
 			case 4: // Sort list of students
 				
-				printf("Not implemented\n");
+				sortingList(head);
 				break;
 			
 			case 5: // Print list of students
@@ -139,7 +137,7 @@ void printMenu() {
 
 } // printMenu()
 
-void sortingList() {
+void sortingList(StudentNode *head) {
 
 	printf("\nSelect one of the following:\n");
 	printf("1. Sort by ID,\n");
@@ -149,20 +147,7 @@ void sortingList() {
 	int sortChoice = 0;
 	scanf(" %d", &sortChoice);
 
-	switch(sortChoice) {
-		case 1: // sort by ID
-			// TODO
-			break;
-		case 2: // sort by name
-			// TODO
-			break;
-		case 3: // sort by GPA
-			// TODO
-			break;
-		default:
-			printf("Invalid choice - cancelling sorting.\n");
-
-	}
+	quickSort(head, sortChoice);
 
 } // sortingList()
 
