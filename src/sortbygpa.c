@@ -12,7 +12,7 @@ StudentNode* partitionGpa(StudentNode* head, StudentNode** left, StudentNode** r
     StudentNode* current = head->next;
     while (current) {
         StudentNode* next = current->next;
-        if(current->data->gpa < pivot->data->gpa){
+        if(current->data->gpa > pivot->data->gpa){
             current->next = *left;
             *left = current;
         }
